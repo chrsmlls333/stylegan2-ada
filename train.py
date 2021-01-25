@@ -173,21 +173,24 @@ def setup_training_options(
     desc += f'-{cfg}'
 
     cfg_specs = {
-        'auto':          dict(ref_gpus=-1, kimg=25000,  mb=-1, mbstd=-1, fmaps=-1,  lrate=-1,     gamma=-1,   ema=-1,  ramp=0.05, map=2), # populated dynamically based on 'gpus' and 'res'
-        'aydao':     dict(ref_gpus=2,  kimg=25000,  mb=16, mbstd=8,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 11GB GPU
-        '11gb-gpu':     dict(ref_gpus=1,  kimg=25000,  mb=4, mbstd=4,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 11GB GPU
-        '11gb-gpu-complex':     dict(ref_gpus=1,  kimg=25000,  mb=4, mbstd=4,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 11GB GPU
-        '24gb-gpu':     dict(ref_gpus=1,  kimg=25000,  mb=8, mbstd=8,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 24GB GPU
-        '24gb-gpu-complex':     dict(ref_gpus=1,  kimg=25000,  mb=8, mbstd=8,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 24GB GPU
-        '24gb-2gpu-complex':     dict(ref_gpus=2,  kimg=25000,  mb=16, mbstd=8,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 24GB GPU
-        '48gb-gpu':     dict(ref_gpus=1,  kimg=25000,  mb=16, mbstd=16,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 48GB GPU
-        '48gb-2gpu':     dict(ref_gpus=2,  kimg=25000,  mb=32, mbstd=16,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 48GB GPU
-        'stylegan2':     dict(ref_gpus=8,  kimg=25000,  mb=32, mbstd=4,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, unlike original StyleGAN2
-        'paper256':      dict(ref_gpus=8,  kimg=25000,  mb=64, mbstd=8,  fmaps=0.5, lrate=0.0025, gamma=1,    ema=20,  ramp=None, map=8),
-        'paper512':      dict(ref_gpus=8,  kimg=25000,  mb=64, mbstd=8,  fmaps=1,   lrate=0.0025, gamma=0.5,  ema=20,  ramp=None, map=8),
-        'paper1024':     dict(ref_gpus=8,  kimg=25000,  mb=32, mbstd=4,  fmaps=1,   lrate=0.002,  gamma=2,    ema=10,  ramp=None, map=8),
-        'cifar':         dict(ref_gpus=2,  kimg=100000, mb=64, mbstd=32, fmaps=0.5, lrate=0.0025, gamma=0.01, ema=500, ramp=0.05, map=2),
-        'cifarbaseline': dict(ref_gpus=2,  kimg=100000, mb=64, mbstd=32, fmaps=0.5, lrate=0.0025, gamma=0.01, ema=500, ramp=0.05, map=8),
+        'auto':                 dict(ref_gpus=-1, kimg=25000,  mb=-1, mbstd=-1, fmaps=-1,  lrate=-1,     gamma=-1,   ema=-1,  ramp=0.05, map=2), # populated dynamically based on 'gpus' and 'res'
+        'aydao':                dict(ref_gpus=2,  kimg=25000,  mb=16, mbstd=8,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 11GB GPU
+        '11gb-gpu':             dict(ref_gpus=1,  kimg=25000,  mb=4,  mbstd=4,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 11GB GPU
+        '11gb-gpu-complex':     dict(ref_gpus=1,  kimg=25000,  mb=4,  mbstd=4,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 11GB GPU
+        '11gb-gpu-slow1':       dict(ref_gpus=1,  kimg=25000,  mb=4,  mbstd=4,  fmaps=1,   lrate=0.001,  gamma=1,    ema=10,  ramp=None, map=8), # uses mixed-precision, 11GB GPU
+        '11gb-gpu-slow2':       dict(ref_gpus=1,  kimg=25000,  mb=4,  mbstd=4,  fmaps=1,   lrate=0.0005, gamma=2,    ema=10,  ramp=None, map=8), # uses mixed-precision, 11GB GPU
+        '11gb-gpu-slow3':       dict(ref_gpus=1,  kimg=25000,  mb=4,  mbstd=4,  fmaps=1,   lrate=0.0007, gamma=2,    ema=10,  ramp=None, map=8), # uses mixed-precision, 11GB GPU
+        '24gb-gpu':             dict(ref_gpus=1,  kimg=25000,  mb=8,  mbstd=8,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 24GB GPU
+        '24gb-gpu-complex':     dict(ref_gpus=1,  kimg=25000,  mb=8,  mbstd=8,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 24GB GPU
+        '24gb-2gpu-complex':    dict(ref_gpus=2,  kimg=25000,  mb=16, mbstd=8,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 24GB GPU
+        '48gb-gpu':             dict(ref_gpus=1,  kimg=25000,  mb=16, mbstd=16, fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 48GB GPU
+        '48gb-2gpu':            dict(ref_gpus=2,  kimg=25000,  mb=32, mbstd=16, fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, 48GB GPU
+        'stylegan2':            dict(ref_gpus=8,  kimg=25000,  mb=32, mbstd=4,  fmaps=1,   lrate=0.002,  gamma=10,   ema=10,  ramp=None, map=8), # uses mixed-precision, unlike original StyleGAN2
+        'paper256':             dict(ref_gpus=8,  kimg=25000,  mb=64, mbstd=8,  fmaps=0.5, lrate=0.0025, gamma=1,    ema=20,  ramp=None, map=8),
+        'paper512':             dict(ref_gpus=8,  kimg=25000,  mb=64, mbstd=8,  fmaps=1,   lrate=0.0025, gamma=0.5,  ema=20,  ramp=None, map=8),
+        'paper1024':            dict(ref_gpus=8,  kimg=25000,  mb=32, mbstd=4,  fmaps=1,   lrate=0.002,  gamma=2,    ema=10,  ramp=None, map=8),
+        'cifar':                dict(ref_gpus=2,  kimg=100000, mb=64, mbstd=32, fmaps=0.5, lrate=0.0025, gamma=0.01, ema=500, ramp=0.05, map=2),
+        'cifarbaseline':        dict(ref_gpus=2,  kimg=100000, mb=64, mbstd=32, fmaps=0.5, lrate=0.0025, gamma=0.01, ema=500, ramp=0.05, map=8),
     }
 
     assert cfg in cfg_specs
@@ -430,10 +433,10 @@ def setup_training_options(
         'ffhq1024':     'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada/pretrained/transfer-learning-source-nets/ffhq-res1024-mirror-stylegan2-noaug.pkl',
         'celebahq256':  'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada/pretrained/transfer-learning-source-nets/celebahq-res256-mirror-paper256-kimg100000-ada-target0.5.pkl',
         'lsundog256':   'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada/pretrained/transfer-learning-source-nets/lsundog-res256-paper256-kimg100000-noaug.pkl',
-        'afhqcat512':      'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada/pretrained/afhqcat.pkl',
-        'afhqdog512':      'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada/pretrained/afhqdog.pkl',
-        'afhqwild512':     'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada/pretrained/afhqwild.pkl',
-        'brecahad512':     'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada/pretrained/brecahad.pkl',
+        'afhqcat512':   'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada/pretrained/afhqcat.pkl',
+        'afhqdog512':   'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada/pretrained/afhqdog.pkl',
+        'afhqwild512':  'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada/pretrained/afhqwild.pkl',
+        'brecahad512':  'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada/pretrained/brecahad.pkl',
         'cifar10':      'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada/pretrained/cifar10.pkl',
         'metfaces':     'https://nvlabs-fi-cdn.nvidia.com/stylegan2-ada/pretrained/metfaces.pkl',
     }
@@ -575,44 +578,54 @@ def main():
     )
 
     group = parser.add_argument_group('general options')
-    group.add_argument('--outdir', help='Where to save the results (required)', required=True, metavar='DIR')
-    group.add_argument('--gpus', help='Number of GPUs to use (default: 1 gpu)', type=int, metavar='INT')
-    group.add_argument('--snap', help='Snapshot interval (default: 50 ticks)', type=int, metavar='INT')
-    group.add_argument('--seed', help='Random seed (default: %(default)s)', type=int, default=1000, metavar='INT')
+    group.add_argument('--outdir',        help='Where to save the results (required)', required=True, metavar='DIR')
+    group.add_argument('--gpus',          help='Number of GPUs to use (default: 1 gpu)', type=int, metavar='INT')
+    group.add_argument('--snap',          help='Snapshot interval (default: 50 ticks)', type=int, metavar='INT')
+    group.add_argument('--seed',          help='Random seed (default: %(default)s)', type=int, default=1000, metavar='INT')
     group.add_argument('-n', '--dry-run', help='Print training options and exit', action='store_true', default=False)
 
     group = parser.add_argument_group('training dataset')
-    group.add_argument('--data',   help='Training dataset path (required)', metavar='PATH', required=True)
-    group.add_argument('--res',    help='Dataset resolution (default: highest available)', type=int, metavar='INT')
-    group.add_argument('--mirror', help='Augment dataset with x-flips (default: false)', type=_str_to_bool, metavar='BOOL')
-    group.add_argument('--mirrory', help='Augment dataset with y-flips (default: false)', type=_str_to_bool, metavar='BOOL')
-    group.add_argument('--use-raw', help='Use raw image dataset, i.e. created from create_from_images_raw (default: %(default)s)', default=False, metavar='BOOL', type=_str_to_bool)
+    group.add_argument('--data',          help='Training dataset path (required)', metavar='PATH', required=True)
+    group.add_argument('--res',           help='Dataset resolution (default: highest available)', type=int, metavar='INT')
+    group.add_argument('--mirror',        help='Augment dataset with x-flips (default: false)', type=_str_to_bool, metavar='BOOL')
+    group.add_argument('--mirrory',       help='Augment dataset with y-flips (default: false)', type=_str_to_bool, metavar='BOOL')
+    group.add_argument('--use-raw',       help='Use raw image dataset, i.e. created from create_from_images_raw (default: %(default)s)', default=False, metavar='BOOL', type=_str_to_bool)
 
     group = parser.add_argument_group('metrics')
-    group.add_argument('--metrics',    help='Comma-separated list or "none" (default: fid50k_full)', type=_parse_comma_sep, metavar='LIST')
-    group.add_argument('--metricdata', help='Dataset to evaluate metrics against (optional)', metavar='PATH')
+    group.add_argument('--metrics',       help='Comma-separated list or "none" (default: fid50k_full)', type=_parse_comma_sep, metavar='LIST')
+    group.add_argument('--metricdata',    help='Dataset to evaluate metrics against (optional)', metavar='PATH')
 
     group = parser.add_argument_group('base config')
-    group.add_argument('--cfg',   help='Base config (default: auto)', choices=['auto', '11gb-gpu','11gb-gpu-complex', '24gb-gpu','24gb-gpu-complex', '48gb-gpu','48gb-2gpu', 'stylegan2', 'paper256', 'paper512', 'paper1024', 'cifar', 'cifarbaseline', 'aydao'])
+    group.add_argument('--cfg',           help='Base config (default: auto)', choices=[
+        'auto', 
+        '11gb-gpu', '11gb-gpu-complex', 
+        '11gb-gpu-slow1', '11gb-gpu-slow2', '11gb-gpu-slow3',
+        '24gb-gpu', '24gb-gpu-complex', 
+        '48gb-gpu', '48gb-2gpu', 
+        'stylegan2', 
+        'paper256', 'paper512', 'paper1024', 
+        'cifar', 'cifarbaseline', 
+        'aydao'
+        ])
 
-    group.add_argument('--gamma', help='Override R1 gamma', type=float, metavar='FLOAT')
-    group.add_argument('--nkimg',  help='Override starting count', type=int, metavar='INT')
-    group.add_argument('--kimg',  help='Override training duration', type=int, metavar='INT')
+    group.add_argument('--gamma',         help='Override R1 gamma', type=float, metavar='FLOAT')
+    group.add_argument('--nkimg',         help='Override starting count', type=int, metavar='INT')
+    group.add_argument('--kimg',          help='Override training duration', type=int, metavar='INT')
 
     group = parser.add_argument_group('discriminator augmentation')
-    group.add_argument('--aug',    help='Augmentation mode (default: ada)', choices=['noaug', 'ada', 'fixed', 'adarv'])
-    group.add_argument('--p',      help='Specify augmentation probability for --aug=fixed', type=float, metavar='FLOAT')
-    group.add_argument('--target', help='Override ADA target for --aug=ada and --aug=adarv', type=float)
-    group.add_argument('--initstrength', help='Override ADA strength at start', type=float)
-    group.add_argument('--augpipe', help='Augmentation pipeline (default: bgc)', choices=['blit', 'geom', 'color', 'filter', 'noise', 'cutout', 'bg', 'bgc', 'bgcf', 'bgcfn', 'bgcfnc'])
+    group.add_argument('--aug',           help='Augmentation mode (default: ada)', choices=['noaug', 'ada', 'fixed', 'adarv'])
+    group.add_argument('--p',             help='Specify augmentation probability for --aug=fixed', type=float, metavar='FLOAT')
+    group.add_argument('--target',        help='Override ADA target for --aug=ada and --aug=adarv', type=float)
+    group.add_argument('--initstrength',  help='Override ADA strength at start', type=float)
+    group.add_argument('--augpipe',       help='Augmentation pipeline (default: bgc)', choices=['blit', 'geom', 'color', 'filter', 'noise', 'cutout', 'bg', 'bgc', 'bgcf', 'bgcfn', 'bgcfnc'])
 
     group = parser.add_argument_group('comparison methods')
-    group.add_argument('--cmethod', help='Comparison method (default: nocmethod)', choices=['nocmethod', 'bcr', 'zcr', 'pagan', 'wgangp', 'auxrot', 'spectralnorm', 'shallowmap', 'adropout'])
-    group.add_argument('--dcap',    help='Multiplier for discriminator capacity', type=float, metavar='FLOAT')
+    group.add_argument('--cmethod',       help='Comparison method (default: nocmethod)', choices=['nocmethod', 'bcr', 'zcr', 'pagan', 'wgangp', 'auxrot', 'spectralnorm', 'shallowmap', 'adropout'])
+    group.add_argument('--dcap',          help='Multiplier for discriminator capacity', type=float, metavar='FLOAT')
 
     group = parser.add_argument_group('transfer learning')
-    group.add_argument('--resume',  help='Resume from network pickle (default: noresume)')
-    group.add_argument('--freezed', help='Freeze-D (default: 0 discriminator layers)', type=int, metavar='INT')
+    group.add_argument('--resume',        help='Resume from network pickle (default: noresume)')
+    group.add_argument('--freezed',       help='Freeze-D (default: 0 discriminator layers)', type=int, metavar='INT')
 
     args = parser.parse_args()
     try:
